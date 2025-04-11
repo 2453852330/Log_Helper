@@ -1,5 +1,5 @@
 ﻿#pragma once
-#include "Kismet/KismetSystemLibrary.h"
+
 #define LOG_DEFAULT_CATEGORY LogTemp
 
 
@@ -29,8 +29,5 @@
 #define AssertLogEnsureA(expr,format,...)		ensureAlwaysMsgf(expr,TEXT("{%hs}\t\t")TEXT(format),	__FUNCTION__,##__VA_ARGS__);  // like verify , no crash ,  exec always
 
 // Screen Logs
-#define LogScreenOnly(time,format,...)					UKismetSystemLibrary::PrintString(GetWorld(),FString::Printf(TEXT(format),##__VA_ARGS__),true,false,FLinearColor::Red,time);	// print on screen only
-#define LogScreenOnly_Color(time,color,format,...)		UKismetSystemLibrary::PrintString(GetWorld(),FString::Printf(TEXT(format),##__VA_ARGS__),true,false,FLinearColor##color,time);	// print on screen only with color
-#define LogScreen(time,format,...)						UKismetSystemLibrary::PrintString(GetWorld(),FString::Printf(TEXT(format),##__VA_ARGS__),true,true,FLinearColor::Red,time);	// print on screen + log
-#define LogScreen_Color(time,color,format,...)			UKismetSystemLibrary::PrintString(GetWorld(),FString::Printf(TEXT(format),##__VA_ARGS__),true,true,FLinearColor##color,time);	// print on screen + log with color
-
+#define LogScreen(time,format,...)					GEngine->AddOnScreenDebugMessage(INDEX_NONE,time,FColor::Red,		FString::Printf(TEXT(format),##__VA_ARGS__));	// print on screen only
+#define LogScreenColor(time,color,format,...)		GEngine->AddOnScreenDebugMessage(INDEX_NONE,time,FColor::##color,	FString::Printf(TEXT(format),##__VA_ARGS__));	// print on screen only with color
